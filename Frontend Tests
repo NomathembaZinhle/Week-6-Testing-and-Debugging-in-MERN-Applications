@@ -1,0 +1,9 @@
+// tests/BugForm.test.js
+import { render, screen, fireEvent } from '@testing-library/react';
+import BugForm from '../components/BugForm';
+
+test('shows error when submitting empty form', () => {
+  render(<BugForm />);
+  fireEvent.click(screen.getByText(/Submit/i));
+  expect(screen.getByText(/Title is required/i)).toBeInTheDocument();
+});
