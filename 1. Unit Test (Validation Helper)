@@ -1,0 +1,6 @@
+// tests/validate.test.js
+const validateBug = require('../utils/validateBug');
+
+test('should fail if title is empty', () => {
+  expect(validateBug({ title: '', description: 'Test', employeeName: 'John' })).toBe(false);
+});
