@@ -1,0 +1,12 @@
+// tests/BugList.test.js
+import { render, waitFor } from '@testing-library/react';
+import axios from 'axios';
+import BugList from '../components/BugList';
+
+jest.mock('axios');
+
+test('loads and displays bugs', async () => {
+  axios.get.mockResolvedValue({ data: [{ title: 'Bug 1', employeeName: 'Sam' }] });
+  const { getByText } = render(<BugList />);
+  await waitFor(() => getByText('Bug 1'));
+});
