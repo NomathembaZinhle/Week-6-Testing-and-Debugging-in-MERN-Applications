@@ -1,0 +1,24 @@
+// tests/bugRoutes.test.js
+const request = require('supertest');
+const app = require('../app');
+const mongoose = require('mongoose');
+
+describe('Bug API', () => {
+  beforeAll(async () => {
+    await mongoose.connect(process.env.MONGO_URL);
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.close();
+  });
+
+  test('POST /api/bugs', async () => {
+    const res = await request(app).post('/api/bugs').send({
+      title: 'Login issue',
+      description: 'Fails on employee dashboard',
+      employeeName: 'Alice'
+    });
+    expect(res.statusCode).toBe(201);
+    expect(res.body.title).toBe('Login issue');
+  });
+});
